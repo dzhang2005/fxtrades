@@ -1,0 +1,64 @@
+#stateagencies_ucmsui,#stateagencies_ucmsui ul,#onlineserv_ucmsui,#onlineserv_ucmsui ul{padding:0;margin:0;list-style:none;z-index:1;color:#fff;font-size:xx-small;font-weight:bold}
+#stateagencies_ucmsui li,#onlineserv_ucmsui li{float:left}
+#stateagencies_ucmsui a,#onlineserv_ucmsui a{color:#fff;font-size:xx-small;text-decoration:none;padding:2px 20px 2px 20px;display:block}
+#stateagencies_ucmsui a:hover,#onlineserv_ucmsui a:hover{background-color:#efefef;color:#103c6b}
+a.headerlink__ucmsui{text-decoration:none;color:#fff}
+a.headerlink__ucmsui:hover{text-decoration:underline;color:#fff}
+td.white_ucmsui{font-size:xx-small;color:#fff}
+h1{font:verdana;font-size:x-small;color:#42709d;padding:0 0 5px 0}
+h2{font-size:x-small;color:#009}
+h3{font-size:xx-small;font-decoration:italics;color:#006}
+.portlet-editor-title{font:bold 16px verdana,arial,helvetica,"sans-serif"}
+.portlet-error{color:#012b58;font:bold 12px verdana,arial,helvetica,"sans-serif"}
+.page-error{color:#012b58;font:16px verdana,arial,helvetica,"sans-serif";text-align:center;padding:50px 300px 50px 300px;line-height:26px}
+#state A{left:12px;width:140px;position:absolute;TOP:85px;height:30px;text-decoration:none}
+#state A I{visibility:hidden}
+#agency A{left:10px;width:335px;position:absolute;TOP:15px;height:65px;text-decoration:none}
+#agency A I{visibility:hidden}
+.navMidtabText A{color:#fff;font:bold 10px verdana,arial,helvetica,"sans-serif";text-decoration:none}
+.navMidtabText A:hover{color:#fff;font:bold 10px verdana,arial,helvetica,"sans-serif";text-decoration:none}
+#dliucms BODY{font-size:13px;color:#000;font-family:Arial,Helvetica,Geneva,sans-serif;background-color:#fff;text-decoration:none}
+#dliucms .portlet{border-right:#000 1px solid;border-top:#000 1px solid;border-left:#000 1px solid;border-bottom:#000 1px solid}
+#dliucms .titlebar{border-right:2px;padding-right:5px;border-top:2px;padding-left:5px;font-weight:bold;font-size:17px;padding-bottom:5px;border-left:2px;color:#000;padding-top:5px;border-bottom:2px;font-family:Arial,Helvetica,Geneva,san-serif;background-color:#e1ca7c;text-decoration:none}
+#dliucms DIV{font-size:13px;color:#000;text-decoration:none}
+#dliucms P{font-size:13px;color:#000;text-decoration:none}
+#dliucms H1{font-weight:bold;font-size:19px;color:#124;text-decoration:none}
+#dliucms H2{font-weight:bold;font-size:16px;color:#009;text-decoration:none}
+#dliucms H3{font-weight:bold;font-size:13px;color:#005129}
+#dliucms TH{font-weight:bold;font-size:13px;color:#fff;background-color:#000}
+#dliucms TR{background-color:#fff}
+#dliucms TR.rowcolor{background-color:#ccc}
+#dliucms .rowcolor{background-color:#ccc}
+#dliucms TD{font-size:11px;color:#000}
+#dliucms TD.columncolor{background-color:#fff}
+#dliucms .error{font-size:16px;color:#900}
+#dliucms .confirm{font-size:16px;color:#090}
+#dliucms .help{font-size:16px;color:#666}
+#dliucms .instruct{font-size:13px;color:#333}
+#dliucms A:LINK{color:#00f;text-decoration:underline}
+#dliucms A:VISITED{color:#90c;text-decoration:underline}
+#dliucms A:ACTIVE{color:#f00;text-decoration:underline}
+#dliucms A:HOVER{color:#f00;text-decoration:underline}
+.glowingtabs{float:left;width:100%}
+.glowingtabs ul{list-style-type:none;margin:0;margin-left:5px;padding:0}
+.glowingtabs li{display:inline;margin:0;padding:0;cursor:hand}
+.glowingtabs a{float:left;background:url(clientlib-site/styles/glowtab-left.gif) no-repeat left top;margin:0;margin-right:5px;padding:0 0 0 9px;text-decoration:none;cursor:hand}
+.glowingtabs a span{float:left;display:block;background:url(clientlib-site/styles/glowtab.gif) no-repeat right top;padding:5px 12px 3px 3px;font-weight:bold;color:#3b3b3b;cursor:hand;font-size:12px}
+.glowingtabs a:hover{background-position:0 -82px}
+.glowingtabs a:hover span{background-position:100% -82px}
+.tabcontainer{clear:left;width:95%;height:1.5em}
+.tabcontent{display:none}
+.activeTab a{background-position:0 -82px}
+.activeTab a span{background-position:100% -82px;color:#fff}
+.glowingTabbedControl{margin-left:1em;line-height:normal;border-bottom:1px solid #7e9fff}
+.whiteBGfootText{color:#17406e;font:x-small arial,helvetica,"sans-serif";text-decoration:none}
+.customfootText{color:#fff;font:x-small arial,helvetica,"sans-serif";text-decoration:none}
+.customfootText A{color:#fff;font:x-small arial,helvetica,"sans-serif";text-decoration:none}
+.customfootText A:hover{text-decoration:underline}
+a.agencylink-pa-dli-ucms{font:x-small arial,helvetica,"sans-serif";text-decoration:none;color:#fff}
+a.agencylink-pa-dli-ucms:hover{font:x-small arial,helvetica,"sans-serif";text-decoration:underline;color:#fff}
+.footHeaderBg{background-color:#17406e}
+body{background-color:#fff}
+td{color:#000;font:xx-small verdana,arial,helvetica,"sans-serif";text-decoration:none}
+.banHelpText{color:#fff;font:bold xx-small verdana,arial,helvetica,"sans-serif";text-decoration:none}
+.customappText{color:#000;font:xx-small verdana,arial,helvetica,"sans-serif";text-decoration:none}

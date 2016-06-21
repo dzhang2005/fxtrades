@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="angular-animate.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-theme.css"/>
+    <style>
+    @keyframes myhide {
+    	from {
+    		height: 100px;
+    	} to {
+    		height: 0;
+    	}
+    }
+    @keyframes myshow {
+    	from {
+    		height: 0;
+    	} to {
+    		height: 100px;
+    	}
+    }
+    	
+        div {
+            background-color: blue;
+            height: 100px;
+            width: 300px;
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+        div.ng-hide {
+           animation:1.5s myhide;
+        }
+        div.ng-show {
+           animation:1.5s myshow;
+        }
+        
+        
+    </style>
+    </head>
+
+    <body ng-app="myApp">
+        Hide the DIV: <input type="checkbox" ng-model="myCheck"/>
+        <div ng-hide="myCheck" ng-show="!myCheck"></div>
+        <script>
+        var myApp = angular.module('myApp', ['ngAnimate']);
+        </script>
+    </body>
+    
+</html>
