@@ -61,7 +61,7 @@
 				return new Date();
 			},
 			latestRetrieveList : 
-		 		$http.get("http://localhost:8089/json?operation=getfxtrades"
+		 		$http.get("http://www.wuzhenweb.com:8089/json?operation=getfxtrades"
  	            ).then(function(response) {
 					return response.data.content;
 				}, function(reason) {
