@@ -39,7 +39,7 @@
 			<td>{{signal.side}}</td>
 			<td>{{signal.symbol}}</td>
 			<td>{{signal.entryPrice}}</td>
-			<td>{{'2016-05-01T23:20:51' | date : 'MM/dd/yyyy hh:mma' }}</td>
+			<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
 			<td>{{signal.lastPrice}}</td>
 			<td>{{signal.profit}}</td>
             <td>{{signal.userNickName}}</td>
@@ -57,8 +57,10 @@
 	    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}).factory('myService', function($http) {
 		return {
-			latestRetrieveTime: new Date();
-			latestRetrieveList : function() {
+			latestRetrieveTime: function() {
+				return new Date();
+			},
+			latestRetrieveList : 
 		 		$http.get("http://localhost:8089/json?operation=getfxtrades"
  	            ).then(function(response) {
 					return response.data.content;
@@ -68,16 +70,20 @@
 				}, function(value) {
 					console.log(value);
 					return null;
-				} 
-				return null;
-			};
-		}}).controller('myCtrl', function($scope, $http, $interval) {
-			$scope.signalRetrieveTime = myService.latestRetrieveTime;
-			$scope.signalList = myService.latestRetrieveList;
+				})
+		}}).controller('myCtrl', function($scope, $http, $interval, myService) {
+			$scope.signalRetrieveTime = myService.latestRetrieveTime();
+			myService.latestRetrieveList.then(function(d) {
+				$scope.signalList = d;
+			});
 			$interval(function() {
-				if (myService.latestRetrieveList) {
-					$scope.signalRetrieveTime = myService.latestRetrieveTime;
-					$scope.signalList = myService.latestRetrieveList;
+				myService.latestRetrieveList.then(function(d) {
+					$scope.newSignalList = d;
+				});
+				if ($scope.newSignalList) {
+					$scope.signalRetrieveTime = myService.latestRetrieveTime();
+					$scope.signalList = $scope.newSignalList;
+					$scope.$apply();
 				}
 			}, 60000);
 		});
