@@ -29,6 +29,9 @@
     from { -webkit-transform: rotate(0deg); }
     to { -webkit-transform: rotate(360deg); }
 }
-.color-red {
+.BUY {
 	color: red;
+}
+.SELL {
+	color: green;
 }

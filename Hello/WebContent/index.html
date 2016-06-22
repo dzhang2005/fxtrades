@@ -31,11 +31,11 @@
 			<td>Entry Price</td>
 			<td>Create Date</td>
 			<td>Last Price</td>
-			<td>Profit</td>
+			<td class="class-red">Profit</td>
             <td>Nick Name</td>
 		</tr>
 		<tr ng-repeat-start="signal in signalList">
-			<td><span ng-style="{'color:red': signal.side == 'BUY', 'color:green': signal.side == 'SELL'}">{{signal.side}}</span></td>
+			<td><span ng-class="signal.side">{{signal.side}}</span></td>
 			<td>{{signal.symbol}}</td>
 			<td>{{signal.entryPrice}}</td>
 			<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
