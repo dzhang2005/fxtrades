@@ -7,7 +7,7 @@
 <script type="text/javascript" src="angular.js"></script>
 <script type="text/javascript" src=angular-animate.js></script>
 <link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/UCMS-Custom.css" />
+<link rel="stylesheet" href="css/fxtr.css" />
 <script src="jquery-2.2.3.js"></script>
 <script type="text/javascript" src="jquery.blockUI.js"></script>
 <script src="bootstrap.js"></script>
@@ -17,15 +17,15 @@
 
 <link rel="stylesheet" href="css/second.css">
 </head>
-<body class="container" ng-app="myApp">
+<body class="container" ng-app="myApp" ng-controller="myCtrl">
+
 	<div class="page-header">
-		<p><h2>Trade Signal</h2></p>
+		<div><h2>Trade Signal</h2></div><div class="text-right">Last refresh time: {{signalRetrieveTime | date: 'MM/dd/yyyy hh:mma'}}</div>
 	</div>
-	<div class="table-responsive" ng-controller="myCtrl">
+	<div class="table-responsive">
 	<table
 		class="table table-condensed table-bordered table-striped table-hover">
-		<tr ng-repeat-start="signal in signalList">
-			<td>Last Refresh</td>
+		<tr>
 			<td>Side</td>
 			<td>Symbol</td>
 			<td>Entry Price</td>
@@ -34,9 +34,8 @@
 			<td>Profit</td>
             <td>Nick Name</td>
 		</tr>
-		<tr>
-			<td>{{signalRetrieveTime | date: 'MM/dd/yyyy hh:mma'}}
-			<td>{{signal.side}}</td>
+		<tr ng-repeat-start="signal in signalList">
+			<td><span ng-style="{'color:red': signal.side == 'BUY', 'color:green': signal.side == 'SELL'}">{{signal.side}}</span></td>
 			<td>{{signal.symbol}}</td>
 			<td>{{signal.entryPrice}}</td>
 			<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
@@ -46,7 +45,7 @@
 		</tr>
 		
 		<tr ng-repeat-end>
-		<td colspan="8"><img alt="Trend image" ng-src="{{signal.chart}}" width="100%"></td>
+		<td colspan="7"><img alt="Trend image" ng-src="{{signal.chart}}" width="100%"></td>
 		</tr>
 	</table>
 	</div>
