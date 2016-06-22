@@ -24,7 +24,7 @@
 	</div>
 	<div class="table-responsive">
 	<table
-		class="table table-condensed table-bordered table-striped table-hover">
+		class="table table-bordered table-hover">
 		<tr>
 			<td>Side</td>
 			<td>Symbol</td>
@@ -35,11 +35,11 @@
             <td>Nick Name</td>
 		</tr>
 		<tr ng-repeat-start="signal in signalList">
-			<td><span ng-class="signal.side">{{signal.side}}</span></td>
+			<td><input type="hidden" id="tradeId{{$index}}" name="tradeIds"/><span ng-class="signal.side">{{signal.side}}</span></td>
 			<td>{{signal.symbol}}</td>
 			<td>{{signal.entryPrice}}</td>
 			<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
-			<td>{{signal.lastPrice}}</td>
+			<td>{{signal.lastPrice}} new price: {{retrieveNewValue(signal.tradeId)[0].lastPrice}}</td>
 			<td>{{signal.profit}}</td>
             <td>{{signal.userNickName}}</td>
 		</tr>
@@ -71,6 +71,14 @@
 					return null;
 				})
 		}}).controller('myCtrl', function($scope, $http, $interval, myService) {
+			$scope.retrieveNewValue = function (tradeId) {
+				if (!$scope.newSignalList) {
+					return null;
+				}
+			    return $scope.newSignalList.filter(function (signal) {
+				      return signal.tradeId == tradeId;
+				    });
+			};
 			$scope.signalRetrieveTime = myService.latestRetrieveTime();
 			myService.latestRetrieveList.then(function(d) {
 				$scope.signalList = d;
@@ -81,10 +89,20 @@
 				});
 				if ($scope.newSignalList) {
 					$scope.signalRetrieveTime = myService.latestRetrieveTime();
-					$scope.signalList = $scope.newSignalList;
+					var myelement = $scope.retrieveNewValue(5);
+					console.log(myelement[0].lastPrice);
 					$scope.$apply();
+					$scope.signalList = $scope.newSignalList;
 				}
 			}, 60000);
+		}).filter('customArray', function($filter){
+		    return function(list, arrayFilter, element){
+		        if(arrayFilter){
+		            return $filter("filter")(list, function(listItem){
+		                return arrayFilter.indexOf(listItem[element]) != -1;
+		            });
+		        }
+		    };
 		});
 </script>
 </body>
