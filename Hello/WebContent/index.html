@@ -39,7 +39,7 @@
 			<td>{{signal.symbol}}</td>
 			<td>{{signal.entryPrice}}</td>
 			<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
-			<td>{{signal.lastPrice}} new price: {{retrieveNewValue(signal.tradeId)[0].lastPrice}}</td>
+			<td>{{signal.lastPrice}}<span ng-show="signal.lastPrice > (retrieveNewValue(signal.tradeId)[0].lastPrice - 1)" class="glyphicon glyphicon-arrow-down" style="color:green"/><span ng-show="signal.lastPrice < (retrieveNewValue(signal.tradeId)[0].lastPrice + 1)" class="glyphicon glyphicon-arrow-up" style="color:red"/></td>
 			<td>{{signal.profit}}</td>
             <td>{{signal.userNickName}}</td>
 		</tr>
