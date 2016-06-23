@@ -18,92 +18,127 @@
 <link rel="stylesheet" href="css/second.css">
 </head>
 <body class="container" ng-app="myApp" ng-controller="myCtrl">
-
+	<div class="navbar-brand" style="display: inherit;">
+	<a><img class="myLogo" src="images/app_icon.png"/></a></div>
 	<div class="page-header">
-		<div><h2>Trade Signal</h2></div><div class="text-right">Last refresh time: {{signalRetrieveTime | date: 'MM/dd/yyyy hh:mma'}}</div>
+		<div>
+			<h2>Trade Signal</h2>
+		</div>
+		<div class="text-right">Last refresh time: {{signalRetrieveTime
+			| date: 'MM/dd/yyyy hh:mma'}}</div>
 	</div>
 	<div class="table-responsive">
-	<table
-		class="table table-bordered table-hover">
-		<tr>
-			<td>Side</td>
-			<td>Symbol</td>
-			<td>Entry Price</td>
-			<td>Create Date</td>
-			<td>Last Price</td>
-			<td class="class-red">Profit</td>
-            <td>Nick Name</td>
-		</tr>
-		<tr ng-repeat-start="signal in signalList">
-			<td><input type="hidden" id="tradeId{{$index}}" name="tradeIds"/><span ng-class="signal.side">{{signal.side}}</span></td>
-			<td>{{signal.symbol}}</td>
-			<td>{{signal.entryPrice}}</td>
-			<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
-			<td>{{signal.lastPrice}}<span ng-show="signal.lastPrice > (retrieveNewValue(signal.tradeId)[0].lastPrice - 1)" class="glyphicon glyphicon-arrow-down" style="color:green"/><span ng-show="signal.lastPrice < (retrieveNewValue(signal.tradeId)[0].lastPrice + 1)" class="glyphicon glyphicon-arrow-up" style="color:red"/></td>
-			<td>{{signal.profit}}</td>
-            <td>{{signal.userNickName}}</td>
-		</tr>
-		
-		<tr ng-repeat-end>
-		<td colspan="7"><img alt="Trend image" ng-src="{{signal.chart}}" width="100%"></td>
-		</tr>
-	</table>
+		<table class="table table-bordered table-hover">
+			<tr>
+				<td>Side</td>
+				<td>Symbol</td>
+				<td>Entry Price</td>
+				<td>Create Date</td>
+				<td>Last Price</td>
+				<td class="class-red">Profit</td>
+				<td>Nick Name</td>
+			</tr>
+			<tr ng-repeat-start="signal in signalList">
+				<td><input type="hidden" id="tradeId{{$index}}" name="tradeIds" /><span
+					ng-class="signal.side">{{signal.side}}</span></td>
+				<td>{{signal.symbol}}</td>
+				<td>{{signal.entryPrice}}</td>
+				<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
+				<td>{{signal.lastPrice}}<span
+					ng-show="retrieveOldValue(signal.tradeId) && signal.lastPrice > retrieveOldValue(signal.tradeId)[0].lastPrice"
+					class="glyphicon glyphicon-arrow-up" style="color: green" ></span><span
+					ng-show="retrieveOldValue(signal.tradeId) && signal.lastPrice < retrieveOldValue(signal.tradeId)[0].lastPrice"
+					class="glyphicon glyphicon-arrow-down" style="color: red" ></span>
+				</td>
+				<td>{{signal.profit}}<span
+					ng-show="signal.profit > retrieveOldValue(signal.tradeId)[0].profit"
+					class="glyphicon glyphicon-arrow-up" style="color: green" ></span><span
+					ng-show="signal.profit < retrieveOldValue(signal.tradeId)[0].profit"
+					class="glyphicon glyphicon-arrow-down" style="color: red" ></span></td>
+				<td>{{signal.userNickName}}</td>
+			</tr>
+
+			<tr ng-repeat-end>
+				<td colspan="7"><img alt="Trend image"
+					ng-src="{{signal.chart}}" width="100%"></td>
+			</tr>
+		</table>
 	</div>
 
 
-<script>
-	angular.module('myApp', []).config(function($httpProvider){
-	    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-	}).factory('myService', function($http) {
-		return {
-			latestRetrieveTime: function() {
-				return new Date();
-			},
-			latestRetrieveList : 
-		 		$http.get("http://www.wuzhenweb.com:8089/json?operation=getfxtrades"
- 	            ).then(function(response) {
-					return response.data.content;
-				}, function(reason) {
-					console.log(reason);
-					return null;
-				}, function(value) {
-					console.log(value);
-					return null;
-				})
-		}}).controller('myCtrl', function($scope, $http, $interval, myService) {
-			$scope.retrieveNewValue = function (tradeId) {
-				if (!$scope.newSignalList) {
-					return null;
-				}
-			    return $scope.newSignalList.filter(function (signal) {
-				      return signal.tradeId == tradeId;
-				    });
-			};
-			$scope.signalRetrieveTime = myService.latestRetrieveTime();
-			myService.latestRetrieveList.then(function(d) {
-				$scope.signalList = d;
-			});
-			$interval(function() {
-				myService.latestRetrieveList.then(function(d) {
-					$scope.newSignalList = d;
-				});
-				if ($scope.newSignalList) {
-					$scope.signalRetrieveTime = myService.latestRetrieveTime();
-					var myelement = $scope.retrieveNewValue(5);
-					console.log(myelement[0].lastPrice);
-					$scope.$apply();
-					$scope.signalList = $scope.newSignalList;
-				}
-			}, 60000);
-		}).filter('customArray', function($filter){
-		    return function(list, arrayFilter, element){
-		        if(arrayFilter){
-		            return $filter("filter")(list, function(listItem){
-		                return arrayFilter.indexOf(listItem[element]) != -1;
-		            });
-		        }
-		    };
-		});
-</script>
+	<script>
+		angular
+				.module('myApp', [])
+				.config(
+						function($httpProvider) {
+							delete $httpProvider.defaults.headers.common['X-Requested-With'];
+						})
+				.factory(
+						'myService',
+						function($http) {
+							return {
+								latestRetrieveTime : function() {
+									return new Date();
+								},
+								latestRetrieveList : $http
+										.get(
+												"http://www.wuzhenweb.com:8089/json?operation=getfxtrades")
+										.then(function(response) {
+											return response.data.content;
+										}, function(reason) {
+											console.log(reason);
+											return null;
+										}, function(value) {
+											console.log(value);
+											return null;
+										})
+							}
+						})
+				.controller(
+						'myCtrl',
+						function($scope, $http, $interval, myService) {
+							$scope.retrieveOldValue = function(tradeId) {
+								if (!$scope.oldSignalList) {
+									return null;
+								}
+								return $scope.oldSignalList.filter(function(
+										signal) {
+									return signal.tradeId == tradeId;
+								});
+							};
+							$scope.signalRetrieveTime = myService
+									.latestRetrieveTime();
+							myService.latestRetrieveList.then(function(d) {
+								$scope.signalList = d;
+							});
+							$interval(function() {
+								myService.latestRetrieveList.then(function(d) {
+									$scope.newSignalList = d;
+								});
+								if ($scope.newSignalList) {
+									$scope.oldSignalList = $scope.signalList;
+									$scope.signalList = $scope.newSignalList;
+									$scope.signalRetrieveTime = myService
+											.latestRetrieveTime();
+									$scope.$apply();
+								}
+							}, 60000);
+						})
+				.filter(
+						'customArray',
+						function($filter) {
+							return function(list, arrayFilter, element) {
+								if (arrayFilter) {
+									return $filter("filter")
+											(
+													list,
+													function(listItem) {
+														return arrayFilter
+																.indexOf(listItem[element]) != -1;
+													});
+								}
+							};
+						});
+	</script>
 </body>
 </html>
