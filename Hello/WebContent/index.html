@@ -113,12 +113,11 @@
 										"http://www.wuzhenweb.com:8089/json?operation=getfxtrades")
 								.then(function(response) {
 									$scope.newSignalList = response.data.content;
-									if ($scope.newSignalList && !$scope.$$phase) {
+									if ($scope.newSignalList) {
 										$scope.oldSignalList = $scope.signalList;
 										$scope.signalList = $scope.newSignalList;
 										$scope.signalRetrieveTime = myService
 												.latestRetrieveTime();
-										$scope.$apply();
 									}
 								}, function(reason) {
 									console.log(reason);
@@ -127,7 +126,7 @@
 									console.log(value);
 									return null;
 								});
-							}, 60000);
+							}, 6000);
 						})
 				.filter(
 						'customArray',
