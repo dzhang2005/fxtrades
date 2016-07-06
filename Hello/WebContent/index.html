@@ -45,16 +45,12 @@
 				<td>{{signal.entryPrice}}</td>
 				<td>{{signal.createDate | date : 'MM/dd/yyyy hh:mma' }}</td>
 				<td>{{signal.lastPrice}}<span
-					ng-show="retrieveOldValue(signal.tradeId) && signal.lastPrice > retrieveOldValue(signal.tradeId)[0].lastPrice"
-					class="glyphicon glyphicon-arrow-up" style="color: green" ></span><span
-					ng-show="retrieveOldValue(signal.tradeId) && signal.lastPrice < retrieveOldValue(signal.tradeId)[0].lastPrice"
+ 					ng-show="signal.priceChange > 0"
+					class="glyphicon glyphicon-arrow-up" style="color: green; transition: all linear 0.5" ></span>
+					<span ng-show="signal.priceChange < 0"
 					class="glyphicon glyphicon-arrow-down" style="color: red" ></span>
 				</td>
-				<td>{{signal.profit}}<span
-					ng-show="signal.profit > retrieveOldValue(signal.tradeId)[0].profit"
-					class="glyphicon glyphicon-arrow-up" style="color: green" ></span><span
-					ng-show="signal.profit < retrieveOldValue(signal.tradeId)[0].profit"
-					class="glyphicon glyphicon-arrow-down" style="color: red" ></span></td>
+				<td>{{signal.profit}}</td>
 				<td>{{signal.userNickName}}</td>
 			</tr>
 
@@ -112,16 +108,25 @@
 								$scope.signalList = d;
 							});
 							$interval(function() {
-								myService.latestRetrieveList.then(function(d) {
-									$scope.newSignalList = d;
+								$http
+								.get(
+										"http://localhost:8089/json?operation=getfxtrades")
+								.then(function(response) {
+									$scope.newSignalList = response.data.content;
+									if ($scope.newSignalList && !$scope.$$parse) {
+										$scope.oldSignalList = $scope.signalList;
+										$scope.signalList = $scope.newSignalList;
+										$scope.signalRetrieveTime = myService
+												.latestRetrieveTime();
+										$scope.$apply();
+									}
+								}, function(reason) {
+									console.log(reason);
+									return null;
+								}, function(value) {
+									console.log(value);
+									return null;
 								});
-								if ($scope.newSignalList) {
-									$scope.oldSignalList = $scope.signalList;
-									$scope.signalList = $scope.newSignalList;
-									$scope.signalRetrieveTime = myService
-											.latestRetrieveTime();
-									$scope.$apply();
-								}
 							}, 60000);
 						})
 				.filter(
