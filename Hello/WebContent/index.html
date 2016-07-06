@@ -110,7 +110,7 @@
 							$interval(function() {
 								$http
 								.get(
-										"http://localhost:8089/json?operation=getfxtrades")
+										"http://www.wuzhenweb.com:8089/json?operation=getfxtrades")
 								.then(function(response) {
 									$scope.newSignalList = response.data.content;
 									if ($scope.newSignalList && !$scope.$$parse) {
