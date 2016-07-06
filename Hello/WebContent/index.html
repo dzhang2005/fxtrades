@@ -40,7 +40,7 @@
 			</tr>
 			<tr ng-repeat-start="signal in signalList">
 				<td><input type="hidden" id="tradeId{{$index}}" name="tradeIds" /><span
-					ng-class="signal.side">{{signal.side}}</span></td>
+					ng-class="signal.side | uppercase">{{signal.side}}</span></td>
 				<td>{{signal.symbol}}</td>
 				<td>{{signal.entryPrice}}</td>
 				<td>{{signal.lastPrice}}<span ng-show="signal.priceChange > 0"
